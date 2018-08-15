@@ -8,7 +8,7 @@ class App extends Component {
   state = {
     data: [],
     searchDate: '07/12/2018', //TODO link this to the calendar with a function
-  }                           //so user can edit state in GUI
+  }                           //so user can edit state in GUI 
 
 
 // fetch data upon loading
