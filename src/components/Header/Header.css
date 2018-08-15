@@ -1,0 +1,6 @@
+.Graph-header {
+  grid-row: 1;
+  background-color: var(--lavendar);
+  border: 5px solid var(--brown);
+  text-align: center;
+}

@@ -1,0 +1,16 @@
+/* flex inside of grid so the number of bars can vary */
+.Graph-bars {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 600px;
+}
+
+/* This formats each bar */
+.Bar {
+  color: var(--green);
+  background-color: var(--yellow-green);
+  border: 5px solid var(--brown);
+  border-bottom: none;
+  padding: 5px;
+}
