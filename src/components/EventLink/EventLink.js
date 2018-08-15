@@ -5,7 +5,6 @@ class EventLink extends Component {
 
   // visits the url of the earthquake event
   eventPage = () => {
-    console.log('Event page button working', this.props.data[0].properties.url);
     window.location.href = this.props.data[0].properties.url;
   }
 
@@ -15,7 +14,7 @@ class EventLink extends Component {
         {
           this.props.data.map(datum => (
             <div className="Bar" style={{height: datum.properties.mag * 10 + "%"}}>
-              <p onClick={this.eventPage}> {datum.properties.place} </p>
+              <p onClick={this.eventPage}> Mag {datum.properties.mag} </p>
             </div>
           ))
         }

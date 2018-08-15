@@ -7,8 +7,8 @@ import InputDate from './components/InputDate/InputDate.js';
 class App extends Component {
   state = {
     data: [],
-    searchDate: '07/12/2018', //TODO link this to the calendar with a function
-  }                           //so user can edit state in GUI 
+    searchDate: '03/11/2011', //TODO link this to the calendar with a function
+  }                           //so user can edit state in GUI
 
 
 // fetch data upon loading
@@ -31,9 +31,10 @@ class App extends Component {
     .then(response => response.json())
     .then(data => {
       for (let quake of data.features) {
-        if (quake.properties.mag > 4.5)
+        if (quake.properties.mag > 6.2)
           quakeArr.push(quake);
         }
+      console.log(quakeArr);
       this.setState({
         data: quakeArr,
       });

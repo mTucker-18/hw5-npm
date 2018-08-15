@@ -6,6 +6,7 @@ class InputDate extends Component {
 
   inputDate = () => {
     console.log('search date', this.props.currentDate)
+
   }
 
   render() {
@@ -13,7 +14,7 @@ class InputDate extends Component {
       <div className='Graph-container'>
         <p>Current date displaying is {this.props.currentDate}</p>
         <p>
-          Search for a 4.5 Magnitude or greater event on
+          Search for a 4.5 magnitude or greater event on
             <input type="date" />
             <button onClick={this.inputDate}>Submit</button>
         </p>
