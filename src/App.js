@@ -20,6 +20,14 @@ class App extends Component {
   onFetch = () => {
     let quakeArr = [];
 
+    let lastDayOf2015 = new Date(2016, 0, 0);
+    console.log("Last day of 2015: " + lastDayOf2015.toString());
+    let nextDay = new Date(+lastDayOf2015);
+    let dateValue = nextDay.getDate() + 1;
+    console.log("Setting the 'date' part to " + dateValue);
+    nextDay.setDate(dateValue);
+    console.log("Resulting date: " + nextDay.toString());
+
     // takes in the search criteria and adds it to the API fetch
     let cleanDate = this.state.searchDate.split('/');
     let month = cleanDate[0];
