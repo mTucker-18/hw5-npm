@@ -43,8 +43,6 @@ class App extends Component {
           quakeArr.push(quake);
         }
 
-      console.log(quakeArr);
-
       // code to sort by magnitude TODO: componentize
       function compare(a,b) {
         if (a.properties.mag < b.properties.mag)
@@ -54,12 +52,29 @@ class App extends Component {
         return 0;
       }
       quakeArr.sort(compare).reverse();
-      console.log(quakeArr);
+
+      // grabs the top 20 earthquakes for the graph TODO: componentize
+      let top20 = []
+      for (let item of quakeArr) {
+        if (top20.length <= 19){
+          top20.push(item);
+        }
+      }
 
       this.setState({
-        data: quakeArr,
+        data: top20,
       });
     });
+  }
+
+  onChange = (event) => {
+    this.setState({searchDate: event.target.value});
+  }
+
+  submit = (event) => {
+    console.log("button clicking");
+    const dateSelect = event.target.value;
+    console.log(dateSelect);
   }
 
   render() {
@@ -69,6 +84,9 @@ class App extends Component {
         <InputDate
           currentDate={this.state.searchDate}
           data={this.state.data}
+          value={this.state.searchDate}
+          onChange={this.onChange}
+          submit={this.submit}
         />
       </div>
     );
