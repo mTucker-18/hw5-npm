@@ -20,13 +20,13 @@ class App extends Component {
   onFetch = () => {
     let quakeArr = [];
 
-    let lastDayOf2015 = new Date(2016, 0, 0);
-    console.log("Last day of 2015: " + lastDayOf2015.toString());
-    let nextDay = new Date(+lastDayOf2015);
-    let dateValue = nextDay.getDate() + 1;
-    console.log("Setting the 'date' part to " + dateValue);
-    nextDay.setDate(dateValue);
-    console.log("Resulting date: " + nextDay.toString());
+    // Code to increment date accurately TODO: componentize
+    console.log(this.state.searchDate);
+    let currDate = new Date(2016, 0, 0);
+    let newDate = new Date(+currDate);
+    let dateValue = newDate.getDate() + 1;
+    newDate.setDate(dateValue);
+    console.log(newDate);
 
     // takes in the search criteria and adds it to the API fetch
     let cleanDate = this.state.searchDate.split('/');
@@ -39,10 +39,23 @@ class App extends Component {
     .then(response => response.json())
     .then(data => {
       for (let quake of data.features) {
-        if (quake.properties.mag > 6.2)
+        if (quake.properties.mag > 4.5)
           quakeArr.push(quake);
         }
+
       console.log(quakeArr);
+
+      // code to sort by magnitude TODO: componentize
+      function compare(a,b) {
+        if (a.properties.mag < b.properties.mag)
+          return -1;
+        if (a.properties.mag > b.properties.mag)
+          return 1;
+        return 0;
+      }
+      quakeArr.sort(compare).reverse();
+      console.log(quakeArr);
+
       this.setState({
         data: quakeArr,
       });
