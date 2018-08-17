@@ -53,7 +53,7 @@ class App extends Component {
       }
       quakeArr.sort(compare).reverse();
 
-      // grabs the top 20 earthquakes for the graph
+      // grabs the strongest 20 earthquakes for the graph
       let top20 = []
       for (let item of quakeArr) {
         if (top20.length <= 19){
@@ -69,10 +69,12 @@ class App extends Component {
     });
   }
 
+  // changes state as user types into the input box
   onChange = (event) => {
     this.setState({searchDate: event.target.value});
   }
 
+  // refreshes page with new data
   submit = (event) => {
     this.onFetch();
   }
