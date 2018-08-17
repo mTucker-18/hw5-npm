@@ -10,7 +10,6 @@ class App extends Component {
     searchDate: '03/11/2011', //TODO link this to the calendar with a function
   }                           //so user can edit state in GUI
 
-
 // fetch data upon loading
   componentDidMount = () => {
     this.onFetch();
@@ -19,14 +18,6 @@ class App extends Component {
 // get data from USGS Earthquake database and populate state
   onFetch = () => {
     let quakeArr = [];
-
-    // Code to increment date accurately TODO: componentize
-    console.log(this.state.searchDate);
-    let currDate = new Date(2016, 0, 0);
-    let newDate = new Date(+currDate);
-    let dateValue = newDate.getDate() + 1;
-    newDate.setDate(dateValue);
-    console.log(newDate);
 
     // takes in the search criteria and adds it to the API fetch
     let cleanDate = this.state.searchDate.split('/');
@@ -67,14 +58,20 @@ class App extends Component {
     });
   }
 
+  // Code to increment date accurately TODO: componentize
+  incDate = () => {
+    let currDate = new Date(2016, 0, 0);
+    let newDate = new Date(+currDate);
+    let dateValue = newDate.getDate() + 1;
+    newDate.setDate(dateValue);
+  }
+
   onChange = (event) => {
     this.setState({searchDate: event.target.value});
   }
 
   submit = (event) => {
-    console.log("button clicking");
-    const dateSelect = event.target.value;
-    console.log(dateSelect);
+    this.onFetch();
   }
 
   render() {

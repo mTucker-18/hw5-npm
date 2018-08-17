@@ -13,10 +13,9 @@ class InputDate extends Component {
             <input
               type="text"
               placeholder="mm/dd/yyyy"
-              value={this.props.text}
               onChange={this.props.onChange}
             />
-            <button onClick={this.props.submit}>Submit</button>
+            <button onClick={this.props.submit} value={this.props.currentDate}>Submit</button>
         </p>
         <p>Click on an event to see more info.</p>
         <EventLink data={this.props.data} />
