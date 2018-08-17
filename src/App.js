@@ -7,8 +7,8 @@ import InputDate from './components/InputDate/InputDate.js';
 class App extends Component {
   state = {
     data: [],
-    searchDate: '03/11/2011', //TODO link this to the calendar with a function
-  }                           //so user can edit state in GUI
+    searchDate: '03/11/2011',
+  }
 
 // fetch data upon loading
   componentDidMount = () => {
@@ -21,12 +21,20 @@ class App extends Component {
 
     // takes in the search criteria and adds it to the API fetch
     let cleanDate = this.state.searchDate.split('/');
-    let month = cleanDate[0];
-    let day = cleanDate[1];
-    let year = cleanDate[2];
-    let endDay = parseInt(cleanDate[1], 10) + 1;
+    let startMonth = cleanDate[0];
+    let startDay = cleanDate[1];
+    let startYear = cleanDate[2];
 
-    fetch(`https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${year}-${month}-${day}&endtime=${year}-${month}-${endDay}`)
+    // increments end date accurately
+    let currDate = new Date(startYear, startMonth, startDay);
+    let newDate = new Date(+currDate);
+    let dateValue = newDate.getDate() + 1;
+    newDate.setDate(dateValue);
+    let endDay = newDate.getDate();
+    let endMonth = newDate.getMonth();
+    let endYear = newDate.getFullYear();
+
+    fetch(`https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${startYear}-${startMonth}-${startDay}&endtime=${endYear}-${endMonth}-${endDay}`)
     .then(response => response.json())
     .then(data => {
       for (let quake of data.features) {
@@ -34,7 +42,7 @@ class App extends Component {
           quakeArr.push(quake);
         }
 
-      // code to sort by magnitude TODO: componentize
+      // code to sort by magnitude TODO: componentize?
       function compare(a,b) {
         if (a.properties.mag < b.properties.mag)
           return -1;
@@ -44,7 +52,7 @@ class App extends Component {
       }
       quakeArr.sort(compare).reverse();
 
-      // grabs the top 20 earthquakes for the graph TODO: componentize
+      // grabs the top 20 earthquakes for the graph TODO: componentize?
       let top20 = []
       for (let item of quakeArr) {
         if (top20.length <= 19){
@@ -56,14 +64,6 @@ class App extends Component {
         data: top20,
       });
     });
-  }
-
-  // Code to increment date accurately TODO: componentize
-  incDate = () => {
-    let currDate = new Date(2016, 0, 0);
-    let newDate = new Date(+currDate);
-    let dateValue = newDate.getDate() + 1;
-    newDate.setDate(dateValue);
   }
 
   onChange = (event) => {
