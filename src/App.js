@@ -34,6 +34,7 @@ class App extends Component {
     let endMonth = newDate.getMonth();
     let endYear = newDate.getFullYear();
 
+    // templates the correct dates into the USGS API
     fetch(`https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${startYear}-${startMonth}-${startDay}&endtime=${endYear}-${endMonth}-${endDay}`)
     .then(response => response.json())
     .then(data => {
@@ -42,7 +43,7 @@ class App extends Component {
           quakeArr.push(quake);
         }
 
-      // code to sort by magnitude TODO: componentize?
+      // code to sort by descending magnitude
       function compare(a,b) {
         if (a.properties.mag < b.properties.mag)
           return -1;
@@ -52,14 +53,16 @@ class App extends Component {
       }
       quakeArr.sort(compare).reverse();
 
-      // grabs the top 20 earthquakes for the graph TODO: componentize?
+      // grabs the top 20 earthquakes for the graph
       let top20 = []
       for (let item of quakeArr) {
         if (top20.length <= 19){
           top20.push(item);
         }
       }
-
+      if (top20.length === 0){
+        alert('No major earthquakes that day.');
+      }
       this.setState({
         data: top20,
       });
