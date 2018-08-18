@@ -39,7 +39,8 @@ class App extends Component {
     .then(response => response.json())
     .then(data => {
       for (let quake of data.features) {
-        if (quake.properties.mag > 4.5)
+        // You can adjust the minimum magnitude here
+        if (quake.properties.mag > 0.1)
           quakeArr.push(quake);
         }
 

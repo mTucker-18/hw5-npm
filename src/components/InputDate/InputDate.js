@@ -9,7 +9,7 @@ class InputDate extends Component {
       <div className='Graph-container'>
         <p>Current date displaying is {this.props.currentDate}</p>
         <p>
-          Search for a 4.5 magnitude or greater event on
+          Search for an event on 
             <input
               type="text"
               placeholder="mm/dd/yyyy"
